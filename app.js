@@ -1,3 +1,11 @@
+/*
+Rock Paper Scissor - Developed by Nurul Sauffian
+Date: 11/14
+
+Updates: 12/5 - Refactored to created DIVs for UI development
+
+*/
+
 let choice;
 let playerSelection;
 let computerSelection;
@@ -5,6 +13,7 @@ let playerScore = 0;
 let computerScore = 0;
 let declarePlayerWinner = 0;
 let declareCompWinner = 0;
+let result;
 
 //Function where computer will return Rock, Paper, or Scissors
 function computerPlay(){
@@ -67,40 +76,36 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
+//where a round of the game is played
 function game(){
     if(playerSelection != null){
         computerSelection = computerPlay();
-        let result = playRound(playerSelection,computerSelection);
-        const results = document.createElement("div");
-        results.classList.add('results');
-        results.textContent = "Computer chose" + computerSelection;
-        results.textContent = "You chose: "+playerSelection;
+        result = playRound(playerSelection,computerSelection);
         results.textContent = result;
-        document.body.appendChild(results);
-        // console.log("Computer chose " + computerSelection);
-        // console.log("You chose: "+playerSelection);
-        // console.log(playRound(playerSelection,computerSelection));
+        computerChoice.textContent = "Computer chose: " + computerSelection;
+        playArea.appendChild(results);  
+        playArea.appendChild(computerChoice);
     }
     else {
     console.log("Player did not make a choice.");
     }
 }
 
-
+// Updating Score and declare winner when a score reached 5 points
 function updateScore(){
-    const score = document.createElement("div");
-    score.classList.add('score');
-    score.textContent = "Player Score: " + playerScore + " Computer Score:" + computerScore;
-    document.body.appendChild(score);
-
+    pScore.textContent = "Your Score: " + playerScore ;
+    cScore.textContent = "Computer Score: " + computerScore ;
     if (playerScore >= 5){
         declarePlayerWinner = 1;
+        declareWinner();
     }
     else if (computerScore >= 5){
         declareCompWinner = 1;
+        declareWinner();
     }
 }
 
+// function to restart the scores
 function restartScore(){
     playerScore = 0;
     computerScore = 0;
@@ -108,24 +113,39 @@ function restartScore(){
     declareCompWinner = 0;
 }
 
+//function to declare the winner and display dialog box to confirm replay
 function declareWinner() {
-    const winner = document.createElement("div");
-        winner.classList.add('winner');
         if(declarePlayerWinner){
-            winner.textContent = "Player Won!";
+           swal("Congrats! You Won! Do you want to play again?",
+           {buttons: {reset:"Bring it on!", noreset:"Nah, I'm good."}})
+           .then((value) => {
+               switch(value){
+                    case "reset":
+                        restartScore();
+                        window.location.reload();
+                        break;
+                    case "noreset":
+                        swal("Thanks for Playing!");
+               }
+           });
         }
         else if (declareCompWinner){
-            winner.textContent = "Computer Won!";
-        }
-        document.body.appendChild(winner);
-        
-        let restart = confirm('Do you want to play again?');
-        if(restart){
-            restartScore();
-            window.location.reload();
+            swal("Sorry, Computer won this time! Do you want to try again?",
+           {buttons: {reset:"Bring it on!", noreset:"Nah, I'm good."}})
+           .then((value) => {
+               switch(value){
+                    case "reset":
+                        restartScore();
+                        window.location.reload();
+                        break;
+                    case "noreset":
+                        swal("Thanks for Playing!");
+               }
+           });
         }
 }
 
+// function to play with rock
 function rockPlay() {
     playerSelection = 'rock';
     if(declarePlayerWinner||declareCompWinner) {
@@ -136,6 +156,7 @@ function rockPlay() {
     }
 }
 
+// function to play with paper
 function paperPlay() {
     playerSelection = 'paper';
     
@@ -147,6 +168,7 @@ function paperPlay() {
     }
 }
 
+// function to play with scissor
 function scissorPlay() {
     playerSelection = 'scissor';
     if(declarePlayerWinner||declareCompWinner) {
@@ -157,31 +179,68 @@ function scissorPlay() {
     }
 }
 
+// create the score-container div
+const score = document.createElement("div");
+score.setAttribute("class","score-container");
+
+// create the player-score div that will be in the score-container div
+const pScore = document.createElement("div");
+pScore.setAttribute("class","player-score");
+pScore.textContent = "Your Score: " + playerScore ;
+
+//create the computer-score div that will be in the score-container div
+const cScore = document.createElement("div");
+cScore.setAttribute("class","computer-score");
+cScore.textContent = "Computer Score: " + computerScore ;
+
+// create the play-container div
+const playArea = document.createElement("div");
+playArea.setAttribute("class","play-container");
+
+// create the computer-result div that will be a child of play-container
+const computerChoice = document.createElement("div");
+computerChoice.setAttribute("class","computer-result");
+
+// create the results that will be a child of play-container
+const results = document.createElement("div");
+results.setAttribute("class","results")
+
+//creating options div to contain choice buttons
+const options = document.createElement("div");
+options.setAttribute("class","options");
+
+//creating the rock button and play the round on click
 const rock = document.createElement("button");
+rock.setAttribute("class","rock-button");
 rock.innerHTML = "Rock";
 rock.addEventListener("click", (e) => {
 rockPlay();
 });
 
+//creating the paper button and play the round on click
 const paper = document.createElement("button");
+paper.setAttribute("class","paper-button");
 paper.innerHTML = "Paper";
 paper.addEventListener("click", (e) => {
    paperPlay();
 });
 
+//creating the scissor button and play the round on click
 const scissor = document.createElement("button");
+scissor.setAttribute("class","scissor-button");
 scissor.innerHTML = "Scissor";
 scissor.addEventListener("click", (e) => {
     scissorPlay();
 });
 
-const score = document.createElement("div");
-
-
-
-document.body.appendChild(rock);
-document.body.appendChild(paper);
-document.body.appendChild(scissor);
-// for(let i = 1; i <= 5; i++){
-//     game();
-// }
+//creating the branches and appending it to the main document
+options.appendChild(rock);
+options.appendChild(paper);
+options.appendChild(scissor);
+score.appendChild(pScore);
+score.appendChild(cScore);
+playArea.appendChild(computerChoice);
+playArea.appendChild(results);
+document.body.appendChild(score);
+document.body.appendChild(options);
+document.body.appendChild(playArea);

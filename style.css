@@ -1,0 +1,110 @@
+body,html{
+    height: 100%;
+    background-color: #f9b8b8;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Architects Daughter', cursive;
+    color: beige;
+}
+
+.title-container{
+    display: flex;
+    justify-content: center;
+}
+
+.title{
+    padding: 25px;
+    font-size: 70px;
+    font-weight: bolder;
+}
+
+.score-container{
+    display: flex;
+    justify-content: space-around;
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.play-container{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.results{
+    margin-right: 10px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    margin: 45px;
+}
+
+button {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #F5BBF9 0, #E23988 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+button:focus {
+  box-shadow: #7a0e40 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+button:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #7a0e40 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+button:active {
+  box-shadow: #7a0e40 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.rock-button{
+    margin-left: 35px;
+    margin-right: 35px;
+}
+.paper-button{
+    margin-left: 35px;
+    margin-right: 35px;
+}
+.scissor-button{
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+
+
+footer{
+    margin-top: auto;
+    text-align: center;
+}
+
+
+
